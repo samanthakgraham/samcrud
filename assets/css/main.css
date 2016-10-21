@@ -1,0 +1,9 @@
+.login-form{
+    text-align: center;
+    margin-top:50px;
+}
+.login-form input{
+    display: block;
+    margin: 20px auto;
+}
+
