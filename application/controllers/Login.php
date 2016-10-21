@@ -37,10 +37,10 @@ class Login extends CI_Controller {
                 if($result['error']) {
                     // Display it to the user
                     $aData['error'] = $result['message'];
-                }
-                
-                // Otherwise, set the session info for this user
-                $_SESSION['user'] = $result['user'];
+                } else {
+                    // Otherwise, set the session info for this user
+                    $_SESSION['user'] = $result['user'];
+                }                                
             }
         }
         
@@ -49,9 +49,7 @@ class Login extends CI_Controller {
             redirect('/stuff/');
         }
         
-        /*
-         * Load views
-         */
+        // Load views
         $this->load->view('header');
         $this->load->view('login', $aData);
         $this->load->view('footer');

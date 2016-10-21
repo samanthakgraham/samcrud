@@ -30,7 +30,7 @@ class User_model extends Parent_model {
         // If no user has this username
         if(empty($aUser)) {            
             $aReturn['message'] = 'That username does not exsit in the database';
-        } else {
+        } else {            
             // If the password doesn't match the one provided
             if(md5($password) !== $aUser[0]['password']) {
                 $aReturn['message'] = 'Your password is incorrect';
