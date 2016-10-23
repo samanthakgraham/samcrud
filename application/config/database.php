@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => 'root',
-	'database' => 'samcrud',
+	'hostname' => 'srv06.datona-1.com',
+	'username' => 'cp4666_crud',
+	'password' => '4dm1n269054',
+	'database' => 'cp4666_crud',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
