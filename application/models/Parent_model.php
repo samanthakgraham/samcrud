@@ -44,9 +44,10 @@ class Parent_model extends CI_Model {
      * 
      */
     public function update($data) {
-        $this->db->update(  $this->table, 
-                            $data, 
-                            array('id' => $data['id'])
+        $this->db->update(  
+            $this->table, 
+            $data, 
+            array('id' => $data['id'])
         );
     }
     

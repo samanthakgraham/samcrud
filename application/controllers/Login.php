@@ -21,6 +21,11 @@ class Login extends CI_Controller {
      * Index for this controller
      */
     public function index() {
+        // If we're already logged in, move along
+        if(isset($_SESSION['user'])) {
+            redirect('/stuff/');
+        }
+        
         // Build an array of data to send to the view, if necessary
         $aData = array();
         
@@ -31,7 +36,7 @@ class Login extends CI_Controller {
                 $aData['error'] = 'Username and password are required!';
             } else {
                 // Try to log the user in
-                $result = $this->user_model->login($_POST['username'], $_POST['username']);
+                $result = $this->user_model->login($_POST['username'], $_POST['password']);
                 
                 // If there was an error with the login
                 if($result['error']) {
@@ -53,6 +58,11 @@ class Login extends CI_Controller {
         $this->load->view('header');
         $this->load->view('login', $aData);
         $this->load->view('footer');
+    }
+    
+    public function logout() {
+        session_destroy();
+        redirect('/login/');        
     }
 }
 

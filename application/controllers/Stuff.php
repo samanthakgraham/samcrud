@@ -15,15 +15,17 @@ class Stuff extends CI_Controller {
         parent::__construct();
 
         // Load necessary models
-        $this->load->model('user_model');
-        $this->load->model('category_model');
-        $this->load->model('thing_model');
+        $this->load->model('user_model');        
     }
     
     /*
      * Index for this controller
      */
     public function index() {  
+        // Make sure we're logged in first
+        if(!isset($_SESSION['user'])) {
+            redirect('/login/');
+        }
         // Build array of data to send to the view
         $aData = array('user' => $_SESSION['user']);
         
@@ -31,6 +33,34 @@ class Stuff extends CI_Controller {
         $this->load->view('header');
         $this->load->view('stuff', $aData);        
         $this->load->view('footer');
+    }
+    
+    public function users() {
+        // Get everything from the users table, to display to the user
+        $crud = new grocery_CRUD();
+        $crud->set_table('users');
+        $crud->set_subject('User');
+        $crud->columns('username', 'email');        
+        $crud->required_fields(array('username', 'password', 'email'));
+        $crud->change_field_type('password','password');
+        
+        $crud->callback_before_insert(array($this,'encrypt_password_callback'));
+        $crud->callback_before_update(array($this,'encrypt_password_callback'));
+
+        $crud->unset_export();
+        $crud->unset_print();
+        $crud->unset_read();
+        $output = $crud->render();
+        
+        // Load views
+        $this->load->view('header');
+        $this->load->view('users', $output);        
+        $this->load->view('footer');
+    }
+    
+    function encrypt_password_callback($post_array, $primary_key = null) {
+        $post_array['password'] = md5($post_array['password']);
+        return $post_array;
     }
 
     public function categories() {
